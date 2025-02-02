@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  * {
+    font-family: Inter_400Regular;
+  }
+}
+
+@layer components {
+  .font-sans-black {
+    font-family: Inter_900Black;
+  }
+}

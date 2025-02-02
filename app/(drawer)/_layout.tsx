@@ -29,6 +29,27 @@ const DrawerLayout = () => (
         ),
       }}
     />
+    <Drawer.Screen
+      name="login"
+      options={{
+        headerTitle: 'Login',
+        drawerLabel: 'Login',
+      }}
+    />
+    <Drawer.Screen
+      name="homepage"
+      options={{
+        headerTitle: 'Home',
+        drawerLabel: 'Home',
+      }}
+    />
+    <Drawer.Screen
+      name="settings"
+      options={{
+        headerTitle: 'Settings',
+        drawerLabel: 'Settings',
+      }}
+    />
   </Drawer>
 );
 
