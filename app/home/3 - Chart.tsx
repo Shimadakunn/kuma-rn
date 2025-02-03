@@ -22,6 +22,11 @@ const data = [
   },
 ];
 
+interface TimeFrameSelectorProps {
+  timeFrame: string;
+  onTimeFrameChange: (timeFrame: string) => void;
+}
+
 export function Chart() {
   const [timeFrame, setTimeFrame] = useState('1h');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -39,9 +44,10 @@ export function Chart() {
   }, []);
 
   return (
-    <View className="rounded-3xl bg-white p-5 pt-2">
+    <View className="w-full">
+      <TimeFrameSelector timeFrame={timeFrame} onTimeFrameChange={setTimeFrame} />
       <LineChart.Provider data={data} onCurrentIndexChange={onCurrentIndexChange}>
-        <LineChart width={330} height={200} className="">
+        <LineChart width={375} height={200} className="">
           <LineChart.Path color="black">
             <LineChart.Dot color="black" at={3} hasPulse />
           </LineChart.Path>
@@ -57,33 +63,23 @@ export function Chart() {
           <LineChart.CursorLine color="black" />
         </LineChart>
       </LineChart.Provider>
-      <View className="mx-auto flex w-[70%] flex-row justify-between">
-        <TouchableOpacity
-          onPress={() => setTimeFrame('1h')}
-          className={`rounded-full ${timeFrame === '1h' ? 'bg-gray-600' : ''} p-2`}>
-          <Text className={`${timeFrame === '1h' ? 'text-white' : 'text-gray-500'}`}>1H</Text>
+    </View>
+  );
+}
+
+function TimeFrameSelector({ timeFrame, onTimeFrameChange }: TimeFrameSelectorProps) {
+  const timeFrames = ['1h', '1d', '1w', '1m', '1y'];
+
+  return (
+    <View className="mx-auto flex w-[70%] flex-row justify-between">
+      {timeFrames.map((frame) => (
+        <TouchableOpacity key={frame} onPress={() => onTimeFrameChange(frame)} className="p-2">
+          <Text
+            className={`${timeFrame === frame ? 'text-black' : 'text-gray-500'} font-sans-bold `}>
+            {frame.toUpperCase()}
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setTimeFrame('1d')}
-          className={`rounded-full ${timeFrame === '1d' ? 'bg-gray-600' : ''} p-2`}>
-          <Text className={`${timeFrame === '1d' ? 'text-white' : 'text-gray-500'}`}>1D</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setTimeFrame('1w')}
-          className={`rounded-full ${timeFrame === '1w' ? 'bg-gray-600' : ''} p-2`}>
-          <Text className={`${timeFrame === '1w' ? 'text-white' : 'text-gray-500'}`}>1W</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setTimeFrame('1m')}
-          className={`rounded-full ${timeFrame === '1m' ? 'bg-gray-600' : ''} p-2`}>
-          <Text className={`${timeFrame === '1m' ? 'text-white' : 'text-gray-500'}`}>1M</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setTimeFrame('1y')}
-          className={`rounded-full ${timeFrame === '1y' ? 'bg-gray-600' : ''} p-2`}>
-          <Text className={`${timeFrame === '1y' ? 'text-white' : 'text-gray-500'}`}>1Y</Text>
-        </TouchableOpacity>
-      </View>
+      ))}
     </View>
   );
 }

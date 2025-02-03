@@ -59,7 +59,7 @@ export default function VideoComponent() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0.95,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',

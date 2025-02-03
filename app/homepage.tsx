@@ -12,16 +12,17 @@ export default function Homepage() {
     <>
       <Stack.Screen options={{ title: 'Home', headerShown: false }} />
 
-      <SafeAreaView className="flex-1  bg-[#F2F2F2]">
+      <SafeAreaView className="flex-1 bg-white">
         <Header />
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          <View className="mb-2 flex w-full flex-1 flex-col items-center justify-start gap-4">
+          <View className="mb-2 w-full flex-1 flex-col items-center justify-start">
             <Balance />
+            <View className="my-2 h-px w-full" />
             <Chart />
             <Stats />
-            <Action />
           </View>
         </ScrollView>
+        <Action />
       </SafeAreaView>
     </>
   );

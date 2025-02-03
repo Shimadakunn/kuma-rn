@@ -12,7 +12,7 @@ export default function Login() {
     <>
       <Stack.Screen options={{ title: 'Login', headerShown: false }} />
 
-      <SafeAreaView className="flex h-full items-center justify-start bg-white">
+      <SafeAreaView className="flex-1 items-center justify-end bg-white">
         <Header />
         <Video />
         <Description />

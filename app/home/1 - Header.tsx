@@ -11,8 +11,8 @@ export default function Header() {
         onPress={() => {
           router.push('/settings');
         }}
-        className="rounded-2xl bg-white p-2">
-        <CircleUserRound size={20} color="black" strokeWidth={2.5} />
+        className="rounded-2xl bg-black/90 p-2">
+        <CircleUserRound size={20} color="white" strokeWidth={2.5} />
       </Pressable>
     </View>
   );

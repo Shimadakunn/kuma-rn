@@ -34,12 +34,10 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (fontsLoaded || fontError) {
-      // Hide splash screen once fonts are loaded or if there's an error
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded, fontError]);
 
-  // Show a loading screen until fonts are loaded
   if (!fontsLoaded && !fontError) {
     return null;
   }
@@ -48,7 +46,10 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Stack>
         <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ title: 'Modal', presentation: 'modal' }} />
+        <Stack.Screen
+          name="modal"
+          options={{ title: 'Modal', presentation: 'modal', headerShown: false }}
+        />
         <Stack.Screen name="home" options={{ title: 'Home', headerShown: false }} />
         <Stack.Screen name="login" options={{ title: 'Login', headerShown: false }} />
         <Stack.Screen name="homepage" options={{ title: 'Home', headerShown: false }} />

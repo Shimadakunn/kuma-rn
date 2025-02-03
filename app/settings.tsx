@@ -11,15 +11,15 @@ export default function SettingsPage() {
     <>
       <Stack.Screen options={{ title: 'Settings', headerShown: false }} />
 
-      <SafeAreaView className="flex-1 bg-[#F2F2F2]">
+      <SafeAreaView className="flex-1 bg-white">
         <Header />
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          <View className="mb-2 flex w-full flex-1 flex-col items-center justify-start gap-4">
+          <View className="mb-2 w-full flex-1 flex-col items-center justify-start gap-6">
             <Settings />
           </View>
         </ScrollView>
+        <Footer />
       </SafeAreaView>
-      <Footer />
     </>
   );
 }

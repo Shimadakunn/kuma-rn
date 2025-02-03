@@ -1,5 +1,12 @@
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 
 export default function DescriptionPage() {
-  return <Text className="font-sans-black mt-8 p-2 text-3xl">Unleash Finance</Text>;
+  return (
+    <View className="w-full items-start justify-start py-6 pl-8">
+      <Text className="font-sans-extrabold text-3xl">
+        Invest.{'\n'}
+        Grow. Prosper.
+      </Text>
+    </View>
+  );
 }
