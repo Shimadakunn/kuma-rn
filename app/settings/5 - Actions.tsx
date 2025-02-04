@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '~/components/ui/button';
 
-export default function Footer() {
+export default function Actions() {
   const insets = useSafeAreaInsets();
 
   return (
@@ -23,14 +23,15 @@ export default function Footer() {
         onPress={() => {
           router.back();
         }}
-        className="aspect-square h-12">
+        noShadow
+        className="aspect-square h-14">
         <ChevronLeft size={24} color="white" />
       </Button>
       <Button
         onPress={() => {
           router.push('/login');
         }}
-        className="h-12 w-[35vw] pl-2">
+        className="h-16 w-[35vw] bg-red-500/90 pl-1">
         <Text className="font-sans-extrabold text-lg text-white">Log Out</Text>
         <ChevronRight size={24} color="white" />
       </Button>

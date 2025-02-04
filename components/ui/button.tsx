@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Animated, Pressable } from 'react-native';
+import { Animated, Pressable, StyleSheet } from 'react-native';
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -7,6 +7,9 @@ interface ButtonProps {
   className?: string;
   noShadow?: boolean;
   isWhite?: boolean;
+  disabled?: boolean;
+  animateBackground?: boolean;
+  pressedBackgroundOpacity?: number;
 }
 
 export function Button({
@@ -15,28 +18,42 @@ export function Button({
   className,
   noShadow = false,
   isWhite = false,
+  disabled = false,
+  animateBackground = false,
+  pressedBackgroundOpacity = 0.4,
 }: ButtonProps) {
   const translate = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current;
   const scale = useRef(new Animated.Value(1)).current;
+  const backgroundOpacity = useRef(new Animated.Value(0)).current;
   const [isPressed, setIsPressed] = useState(false);
 
   const animatePress = (pressed: boolean) => {
+    if (disabled) return;
     setIsPressed(pressed);
     Animated.parallel([
       Animated.spring(scale, {
         toValue: pressed ? 0.98 : 1,
         useNativeDriver: true,
       }),
+      Animated.spring(backgroundOpacity, {
+        toValue: pressed ? pressedBackgroundOpacity : 0,
+        useNativeDriver: true,
+        friction: 20,
+        tension: 200,
+      }),
     ]).start();
   };
 
   return (
     <Pressable
+      disabled={disabled}
       onPressIn={() => animatePress(true)}
       onPressOut={() => animatePress(false)}
       onPress={onPress}>
       <Animated.View
-        className={`h-14 flex-row items-center justify-around rounded-2xl ${isWhite ? 'bg-white text-black' : 'bg-black text-white'} ${className}`}
+        className={`flex-row items-center justify-around rounded-2xl ${
+          isWhite ? 'bg-white text-black' : 'bg-black text-white'
+        } ${disabled ? 'opacity-50' : ''} ${className}`}
         style={{
           transform: [...translate.getTranslateTransform(), { scale }],
           ...(noShadow
@@ -51,7 +68,22 @@ export function Button({
                 shadowRadius: 6,
                 elevation: isPressed ? 0 : 5,
               }),
+          ...(animateBackground
+            ? {
+                backgroundColor: 'transparent',
+              }
+            : {}),
         }}>
+        {animateBackground && (
+          <Animated.View
+            style={{
+              ...StyleSheet.absoluteFillObject,
+              backgroundColor: 'white',
+              opacity: backgroundOpacity,
+              borderRadius: 30,
+            }}
+          />
+        )}
         {children}
       </Animated.View>
     </Pressable>

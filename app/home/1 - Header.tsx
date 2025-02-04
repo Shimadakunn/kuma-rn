@@ -1,19 +1,22 @@
 import { router } from 'expo-router';
 import { CircleUserRound } from 'lucide-react-native';
 import React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
+
+import { Button } from '~/components/ui/button';
 
 export default function Header() {
   return (
     <View className="flex w-full flex-row items-center justify-between p-4">
       <Text className="font-sans-extrabold text-3xl">Account</Text>
-      <Pressable
+      <Button
         onPress={() => {
           router.push('/settings');
         }}
-        className="rounded-2xl bg-black/90 p-2">
+        noShadow
+        className="bg-black/90 p-2">
         <CircleUserRound size={20} color="white" strokeWidth={2.5} />
-      </Pressable>
+      </Button>
     </View>
   );
 }

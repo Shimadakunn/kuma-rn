@@ -4,7 +4,7 @@ import { SafeAreaView, ScrollView, View } from 'react-native';
 
 import Header from '~/app/settings/1 - Header';
 import Settings from '~/app/settings/2 - Settings';
-import Footer from '~/app/settings/5 - Footer';
+import Actions from '~/app/settings/5 - Actions';
 
 export default function SettingsPage() {
   return (
@@ -18,7 +18,7 @@ export default function SettingsPage() {
             <Settings />
           </View>
         </ScrollView>
-        <Footer />
+        <Actions />
       </SafeAreaView>
     </>
   );

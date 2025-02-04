@@ -3,7 +3,7 @@ import { Image, Text, View } from 'react-native';
 
 export default function HeaderPage() {
   return (
-    <View className="flex w-full flex-row items-start justify-center gap-1 px-8 py-4">
+    <View className="w-full flex-row items-start justify-center gap-1 px-8 py-4">
       <Image
         source={{
           uri: 'https://res.cloudinary.com/dvgc2tpte/image/upload/f_auto,q_auto:good,w_48,dpr_2.0,c_scale/v1738370119/logo_lmakde.png',
