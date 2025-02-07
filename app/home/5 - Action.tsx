@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import WithdrawDrawer from '~/components/WithdrawDrawer';
-import { Button } from '~/components/ui/button';
+import WithdrawDrawer from '~/src/components/WithdrawDrawer';
+import { Button } from '~/src/components/ui/button';
 
 export default function ActionPage() {
   const insets = useSafeAreaInsets();

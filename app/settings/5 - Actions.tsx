@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { Button } from '~/components/ui/button';
+import { Button } from '~/src/components/ui/button';
 
 export default function Actions() {
   const insets = useSafeAreaInsets();

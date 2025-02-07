@@ -3,7 +3,7 @@ import { CircleUserRound } from 'lucide-react-native';
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { Button } from '~/components/ui/button';
+import { Button } from '~/src/components/ui/button';
 
 export default function Header() {
   return (

@@ -3,8 +3,8 @@ import { ChevronRight } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 
-import LoginDrawer from '~/components/LoginDrawer';
-import { Button } from '~/components/ui/button';
+import LoginDrawer from '~/src/components/LoginDrawer';
+import { Button } from '~/src/components/ui/button';
 
 export default function ActionPage() {
   const [isLoginDrawerVisible, setIsLoginDrawerVisible] = useState(false);
