@@ -27,7 +27,7 @@ interface TimeFrameSelectorProps {
   onTimeFrameChange: (timeFrame: string) => void;
 }
 
-export function Chart() {
+export default function Chart() {
   const [timeFrame, setTimeFrame] = useState('1h');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dragging, setDragging] = useState(false);

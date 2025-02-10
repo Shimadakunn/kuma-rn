@@ -28,8 +28,16 @@ export default function LoginDrawer({
 
   const inputRef = useRef<TextInput>(null);
   const { signInWithOTP, authState, verifyUserOTP } = useAlchemyAuthSession();
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+    return () => setIsMounted(false);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
     if (isVisible) {
       setTimeout(() => {
         inputRef.current?.focus();
@@ -44,13 +52,12 @@ export default function LoginDrawer({
   }, [isVisible]);
 
   useEffect(() => {
+    if (!isMounted || !isVisible) return;
+
     if (authState === AuthenticatingState.AWAITING_OTP) {
       setIsOtpStep(true);
-    } else if (authState === AuthenticatingState.AUTHENTICATED) {
-      onClose();
-      router.replace('/');
     }
-  }, [authState, onClose, router]);
+  }, [authState, isMounted, isVisible]);
 
   const handleLogin = useCallback(async () => {
     try {
@@ -62,8 +69,9 @@ export default function LoginDrawer({
 
   const handleVerifyOtp = useCallback(async () => {
     await verifyUserOTP(otp);
-    router.replace('/');
-  }, [otp]);
+    onClose();
+    router.replace('/home');
+  }, [otp, verifyUserOTP, onClose, router]);
 
   const isEmailValid = isValidEmail(email);
 

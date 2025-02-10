@@ -5,11 +5,24 @@ const { withNativeWind } = require('nativewind/metro');
 // eslint-disable-next-line no-undef
 const config = getDefaultConfig(__dirname);
 
-config.resolver.extraNodeModules = {
-  ...config.resolver.extraNodeModules,
-  ...require('node-libs-react-native'),
-  crypto: require.resolve('crypto-browserify'),
-  stream: require.resolve('stream-browserify'),
+// Add SVG support
+const { transformer, resolver } = config;
+
+config.transformer = {
+  ...transformer,
+  babelTransformerPath: require.resolve('react-native-svg-transformer'),
+};
+
+config.resolver = {
+  ...resolver,
+  extraNodeModules: {
+    ...resolver.extraNodeModules,
+    ...require('node-libs-react-native'),
+    crypto: require.resolve('crypto-browserify'),
+    stream: require.resolve('stream-browserify'),
+  },
+  assetExts: resolver.assetExts.filter((ext) => ext !== 'svg'),
+  sourceExts: [...resolver.sourceExts, 'svg'],
 };
 
 module.exports = withNativeWind(config, { input: './global.css' });

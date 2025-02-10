@@ -21,8 +21,7 @@ import '../global.css';
 SplashScreen.preventAutoHideAsync();
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '/login',
+  initialRouteName: 'login',
 };
 
 export default function RootLayout() {
@@ -48,16 +47,15 @@ export default function RootLayout() {
   return (
     <AlchemyAuthSessionProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <Stack>
-          <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="modal"
-            options={{ title: 'Modal', presentation: 'modal', headerShown: false }}
-          />
-          <Stack.Screen name="home" options={{ title: 'Home', headerShown: false }} />
-          <Stack.Screen name="login" options={{ title: 'Login', headerShown: false }} />
-          <Stack.Screen name="homepage" options={{ title: 'Home', headerShown: false }} />
-          {/* <Stack.Screen name="settings" options={{ title: 'Settings', headerShown: false }} /> */}
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: 'white' },
+          }}>
+          <Stack.Screen name="index" redirect />
+          <Stack.Screen name="login" />
+          <Stack.Screen name="home" />
+          <Stack.Screen name="settings" />
         </Stack>
       </GestureHandlerRootView>
     </AlchemyAuthSessionProvider>

@@ -2,9 +2,7 @@ import { Stack } from 'expo-router';
 import React from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
 
-import Header from '~/app/settings/1 - Header';
-import Settings from '~/app/settings/2 - Settings';
-import Actions from '~/app/settings/5 - Actions';
+import { Actions, Header, Settings } from '~/src/pages/settings';
 
 export default function SettingsPage() {
   return (

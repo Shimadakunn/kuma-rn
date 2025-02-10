@@ -2,10 +2,7 @@ import { Stack } from 'expo-router';
 import React from 'react';
 import { SafeAreaView } from 'react-native';
 
-import Header from '~/app/login/1 - Header';
-import Video from '~/app/login/2 - Video';
-import Description from '~/app/login/3 - Description';
-import Action from '~/app/login/4 - Action';
+import { Action, Description, Header, Video } from '~/src/pages/login';
 
 export default function Login() {
   return (

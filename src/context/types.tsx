@@ -12,6 +12,8 @@ export interface AlchemyAuthSessionContextType {
   authState: AuthenticatingState | null;
   loading: boolean;
   lightAccountClient: AlchemySmartAccountClient | null;
+  isSendingUserOperation: boolean;
+  sendUserOperation: () => void;
   signInWithOTP: (email: string) => void;
   verifyUserOTP: (otp: string) => void;
   signOutUser: () => void;

@@ -4,9 +4,10 @@ import { Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '~/src/components/ui/button';
-
+import { useAlchemyAuthSession } from '~/src/context/AlchemyAuthSessionProvider';
 export default function Actions() {
   const insets = useSafeAreaInsets();
+  const { signOutUser } = useAlchemyAuthSession();
 
   return (
     <View
@@ -28,8 +29,9 @@ export default function Actions() {
         <ChevronLeft size={24} color="white" />
       </Button>
       <Button
-        onPress={() => {
-          router.push('/login');
+        onPress={async () => {
+          await signOutUser();
+          router.replace('/login');
         }}
         className="h-16 w-[35vw] bg-red-500/90 pl-1">
         <Text className="font-sans-extrabold text-lg text-white">Log Out</Text>

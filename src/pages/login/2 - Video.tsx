@@ -6,35 +6,6 @@ export default function VideoComponent() {
   const video = useRef<Video>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // useEffect(() => {
-  //   loadVideo();
-  //   return () => {
-  //     if (video.current) {
-  //       video.current.unloadAsync();
-  //     }
-  //   };
-  // }, []);
-
-  // const loadVideo = async () => {
-  //   try {
-  //     if (video.current) {
-  //       const status = await video.current.loadAsync(
-  //         {
-  //           uri: 'https://res.cloudinary.com/dvgc2tpte/video/upload/q_auto,f_auto,vc_auto,w_auto,c_scale/v1738367753/shine_2_olihuk.mp4',
-  //         },
-  //         {},
-  //         false
-  //       );
-  //       console.log('Video loaded with status:', status);
-  //       await video.current.playAsync();
-  //       await video.current.setIsLoopingAsync(true);
-  //     }
-  //   } catch (err) {
-  //     console.error('Error loading video:', err);
-  //     setError(err instanceof Error ? err.message : 'Failed to load video');
-  //   }
-  // };
-
   return (
     <View style={styles.container}>
       <Video

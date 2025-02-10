@@ -1,3 +1,4 @@
+import * as Haptics from 'expo-haptics';
 import { useRef, useState } from 'react';
 import { Animated, Pressable, StyleSheet } from 'react-native';
 
@@ -47,8 +48,13 @@ export function Button({
   return (
     <Pressable
       disabled={disabled}
-      onPressIn={() => animatePress(true)}
-      onPressOut={() => animatePress(false)}
+      onPressIn={() => {
+        animatePress(true);
+      }}
+      onPressOut={() => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+        animatePress(false);
+      }}
       onPress={onPress}>
       <Animated.View
         className={`flex-row items-center justify-around rounded-2xl ${

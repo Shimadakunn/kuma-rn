@@ -2,26 +2,54 @@ import { alchemy, AlchemySmartAccountClient, sepolia } from '@account-kit/infra'
 import { User } from '@account-kit/signer';
 import { createLightAccountAlchemyClient } from '@account-kit/smart-contracts';
 import { EXPO_PUBLIC_API_KEY } from '@env';
+import { router } from 'expo-router';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
-import { AppLoadingIndicator } from '../components/app-loading';
-import { signer } from '../utils/signer';
-import { AlchemyAuthSessionContextType, AuthenticatingState } from './types';
+import { AppLoadingIndicator } from '../components/app-loading.js';
+import { signer } from '../utils/signer.js';
+import {
+  getPersistedAuthState,
+  getPersistedUser,
+  persistAuthState,
+  persistUser,
+} from '../utils/storage.js';
+import { AlchemyAuthSessionContextType, AuthenticatingState } from './types.js';
 
 const AlchemyAuthSessionContext = createContext<AlchemyAuthSessionContextType>(null!);
 
 export const AlchemyAuthSessionProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [authState, setAuthState] = useState<AuthenticatingState | null>(null);
+  const [user, setUser] = useState<User | null>(() => getPersistedUser());
+  const [authState, setAuthState] = useState<AuthenticatingState | null>(() => {
+    const state = getPersistedAuthState();
+    return state ? (state as AuthenticatingState) : null;
+  });
   const [isAuthDetailsLoading, setAuthDetailsLoading] = useState<boolean>(false);
-
+  const [isSendingUserOperation, setIsSendingUserOperation] = useState<boolean>(false);
   const [lightAccountClient, setLightAccountClient] = useState<AlchemySmartAccountClient | null>(
     null
   );
 
   useEffect(() => {
+    console.log('Auth State: ', authState);
+    persistAuthState(authState);
+
+    if (isAuthDetailsLoading) return;
+
+    if (authState === AuthenticatingState.AUTHENTICATED) {
+      router.replace('/home');
+      console.log('Auth State: AUTHENTICATED');
+    } else if (authState === AuthenticatingState.UNAUTHENTICATED || !authState) {
+      router.replace('/login');
+      console.log('Auth State: UNAUTHENTICATED');
+    }
+  }, [authState, isAuthDetailsLoading]);
+
+  useEffect(() => {
+    persistUser(user);
+  }, [user]);
+
+  useEffect(() => {
     if (!user) {
-      console.log('API Key:', EXPO_PUBLIC_API_KEY);
       signer
         .getAuthDetails()
         .then((user) => {
@@ -61,11 +89,9 @@ export const AlchemyAuthSessionProvider = ({ children }: { children: React.React
 
         setUser(user);
         setAuthState(AuthenticatingState.AUTHENTICATED);
-        console.log('Auth State: AUTHENTICATED');
       } catch (e) {
         console.error('Unable to verify otp. Check logs for more details: ', e);
         setAuthState(AuthenticatingState.UNAUTHENTICATED);
-        console.log('Auth State: UNAUTHENTICATED');
       } finally {
         setAuthDetailsLoading(false);
       }
@@ -96,6 +122,28 @@ export const AlchemyAuthSessionProvider = ({ children }: { children: React.React
     setAuthState(AuthenticatingState.UNAUTHENTICATED);
   }, []);
 
+  const sendUserOperation = useCallback(async () => {
+    if (!lightAccountClient) return;
+    try {
+      setIsSendingUserOperation(true);
+      const { hash } = await lightAccountClient.sendUserOperation({
+        uo: [
+          {
+            target: '0xTARGET_ADDRESS_1',
+            data: '0x',
+            value: 0n,
+          },
+        ],
+        account: lightAccountClient.account,
+      });
+      console.log('User operation sent', hash);
+    } catch (error) {
+      console.error('Error sending user operation', error);
+    } finally {
+      setIsSendingUserOperation(false);
+    }
+  }, [lightAccountClient]);
+
   return (
     <AlchemyAuthSessionContext.Provider
       value={{
@@ -106,6 +154,8 @@ export const AlchemyAuthSessionProvider = ({ children }: { children: React.React
         verifyUserOTP,
         lightAccountClient,
         loading: isAuthDetailsLoading,
+        isSendingUserOperation,
+        sendUserOperation,
       }}>
       {isAuthDetailsLoading && <AppLoadingIndicator />}
       {children}

@@ -13,7 +13,7 @@ export default function ActionPage() {
       <View className="w-full flex-row items-center justify-around px-4 py-6">
         <Button
           onPress={() => {
-            router.push('/homepage');
+            router.replace('/home');
           }}
           noShadow
           isWhite
