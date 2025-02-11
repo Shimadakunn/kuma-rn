@@ -70,7 +70,7 @@ export default function LoginDrawer({
   const handleVerifyOtp = useCallback(async () => {
     await verifyUserOTP(otp);
     onClose();
-    router.replace('/home');
+    router.navigate('/home');
   }, [otp, verifyUserOTP, onClose, router]);
 
   const isEmailValid = isValidEmail(email);

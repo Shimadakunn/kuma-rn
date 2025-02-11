@@ -1,4 +1,3 @@
-import { router } from 'expo-router';
 import { ChevronRight } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
@@ -22,11 +21,7 @@ export default function ActionPage() {
           zIndex: 10,
         }}
         className="w-full flex-row items-center justify-around px-4 pb-4">
-        <Button
-          onPress={() => {
-            router.push('/settings');
-          }}
-          className="h-16 w-[40vw] pl-1">
+        <Button onPress={() => {}} className="h-16 w-[40vw] pl-1">
           <Text className="font-sans-extrabold text-lg text-white">Deposit</Text>
           <ChevronRight size={24} color="white" />
         </Button>

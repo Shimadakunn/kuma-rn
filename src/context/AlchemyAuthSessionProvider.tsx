@@ -5,15 +5,15 @@ import { EXPO_PUBLIC_API_KEY } from '@env';
 import { router } from 'expo-router';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
-import { AppLoadingIndicator } from '../components/app-loading.js';
-import { signer } from '../utils/signer.js';
+import { AppLoadingIndicator } from '~/src/components/app-loading';
+import { signer } from '~/src/utils/signer';
 import {
   getPersistedAuthState,
   getPersistedUser,
   persistAuthState,
   persistUser,
-} from '../utils/storage.js';
-import { AlchemyAuthSessionContextType, AuthenticatingState } from './types.js';
+} from '~/src/utils/storage';
+import { AlchemyAuthSessionContextType, AuthenticatingState } from './types';
 
 const AlchemyAuthSessionContext = createContext<AlchemyAuthSessionContextType>(null!);
 
@@ -36,10 +36,10 @@ export const AlchemyAuthSessionProvider = ({ children }: { children: React.React
     if (isAuthDetailsLoading) return;
 
     if (authState === AuthenticatingState.AUTHENTICATED) {
-      router.replace('/home');
+      router.navigate('/home');
       console.log('Auth State: AUTHENTICATED');
     } else if (authState === AuthenticatingState.UNAUTHENTICATED || !authState) {
-      router.replace('/login');
+      router.navigate('/login');
       console.log('Auth State: UNAUTHENTICATED');
     }
   }, [authState, isAuthDetailsLoading]);

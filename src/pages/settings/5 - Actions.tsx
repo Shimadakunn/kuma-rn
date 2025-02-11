@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '~/src/components/ui/button';
 import { useAlchemyAuthSession } from '~/src/context/AlchemyAuthSessionProvider';
+
 export default function Actions() {
   const insets = useSafeAreaInsets();
   const { signOutUser } = useAlchemyAuthSession();

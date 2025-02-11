@@ -1,3 +1,6 @@
+import 'node-libs-react-native/globals.js';
+import 'react-native-get-random-values';
+
 import {
   Inter_400Regular,
   Inter_500Medium,
@@ -9,11 +12,9 @@ import {
 } from '@expo-google-fonts/inter';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import 'node-libs-react-native/globals.js';
 import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import 'react-native-get-random-values';
 import { AlchemyAuthSessionProvider } from '~/src/context/AlchemyAuthSessionProvider';
 import '../global.css';
 
@@ -21,7 +22,7 @@ import '../global.css';
 SplashScreen.preventAutoHideAsync();
 
 export const unstable_settings = {
-  initialRouteName: 'login',
+  initialRouteName: '/login',
 };
 
 export default function RootLayout() {
@@ -50,12 +51,10 @@ export default function RootLayout() {
         <Stack
           screenOptions={{
             headerShown: false,
-            contentStyle: { backgroundColor: 'white' },
+            animation: 'none',
           }}>
-          <Stack.Screen name="index" redirect />
-          <Stack.Screen name="login" />
-          <Stack.Screen name="home" />
-          <Stack.Screen name="settings" />
+          <Stack.Screen name="login" options={{ animation: 'none' }} />
+          <Stack.Screen name="settings" options={{ animation: 'slide_from_right' }} />
         </Stack>
       </GestureHandlerRootView>
     </AlchemyAuthSessionProvider>

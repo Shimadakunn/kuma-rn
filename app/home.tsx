@@ -2,8 +2,11 @@ import { Stack } from 'expo-router';
 import React from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
 
-import { Action, Balance, Chart, Header, Stats } from '~/src/pages/home';
-
+import Header from '~/src/pages/home/1 - Header';
+import Balance from '~/src/pages/home/2 - Balance';
+import Chart from '~/src/pages/home/3 - Chart';
+import Stats from '~/src/pages/home/4 - Stats';
+import Action from '~/src/pages/home/5 - Action';
 export default function Homepage() {
   return (
     <>

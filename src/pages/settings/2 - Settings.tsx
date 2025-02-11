@@ -33,7 +33,7 @@ export default function Settings() {
       <Pressable
         className="w-full items-center justify-center rounded-xl bg-red-400 p-3"
         onPress={() => {
-          router.push('/login');
+          router.navigate('/login');
         }}>
         <Text className="font-sans-extrabold text-white">Log Out</Text>
       </Pressable>

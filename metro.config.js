@@ -13,6 +13,13 @@ config.transformer = {
   babelTransformerPath: require.resolve('react-native-svg-transformer'),
 };
 
+config.resolver.extraNodeModules = {
+  ...config.resolver.extraNodeModules,
+  ...require('node-libs-react-native'),
+  crypto: require.resolve('crypto-browserify'),
+  stream: require.resolve('stream-browserify'),
+};
+
 config.resolver = {
   ...resolver,
   extraNodeModules: {
